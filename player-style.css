@@ -1,0 +1,231 @@
+/* تنسيقات مشغل الفيديو */
+.video-player-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(15, 23, 42, 0.98);
+    backdrop-filter: blur(10px);
+    z-index: 10000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.video-player {
+    background: #1e293b;
+    border-radius: 20px;
+    width: 95%;
+    max-width: 1000px;
+    max-height: 90vh;
+    overflow: hidden;
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    animation: slideUp 0.3s ease;
+}
+
+.player-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.player-header h3 {
+    color: #3b82f6;
+    margin: 0;
+    font-size: 1.3rem;
+    flex: 1;
+    padding-right: 20px;
+}
+
+.close-player {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.close-player:hover {
+    background: rgba(239, 68, 68, 0.3);
+    color: #ef4444;
+    transform: rotate(90deg);
+}
+
+.player-content {
+    padding: 0;
+}
+
+.main-video {
+    width: 100%;
+    height: auto;
+    max-height: 60vh;
+    background: #000;
+    display: block;
+}
+
+.player-info {
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.info-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 15px;
+    color: #cbd5e1;
+    font-size: 14px;
+}
+
+.info-row span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.info-row i {
+    color: #3b82f6;
+}
+
+.video-description {
+    color: #f1f5f9;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    border-right: 3px solid #3b82f6;
+}
+
+.player-actions {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.player-btn {
+    flex: 1;
+    min-width: 120px;
+    padding: 12px 20px;
+    border-radius: 10px;
+    border: none;
+    font-family: 'Cairo', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 16px;
+}
+
+.player-btn.like {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: white;
+}
+
+.player-btn.share {
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    color: white;
+}
+
+.player-btn.download {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+}
+
+.player-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* إضافة overlay للتشغيل على الصورة المصغرة */
+.play-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.video-thumbnail:hover .play-overlay {
+    opacity: 1;
+}
+
+.play-overlay i {
+    font-size: 40px;
+    color: white;
+    background: rgba(59, 130, 246, 0.8);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.video-thumbnail:hover .play-overlay i {
+    transform: scale(1.1);
+}
+
+/* تصميم متجاوب للمشغل */
+@media (max-width: 768px) {
+    .video-player {
+        width: 100%;
+        height: 100%;
+        max-height: 100vh;
+        border-radius: 0;
+    }
+    
+    .player-header h3 {
+        font-size: 1.1rem;
+    }
+    
+    .main-video {
+        max-height: 50vh;
+    }
+    
+    .player-actions {
+        flex-direction: column;
+    }
+    
+    .player-btn {
+        width: 100%;
+    }
+    
+    .info-row {
+        font-size: 12px;
+        justify-content: center;
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { transform: translateY(50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
