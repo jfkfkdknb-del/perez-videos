@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>موقع بيريز | مشاهدة الفيديوهات</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="player-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- شريط التنقل -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-video"></i>
+                <span>بيريز</span>
+            </div>
+            
+            <div class="nav-links">
+                <a href="#home" class="active"><i class="fas fa-home"></i> الرئيسية</a>
+                <a href="#videos"><i class="fas fa-play-circle"></i> الفيديوهات</a>
+                <a href="#categories"><i class="fas fa-list"></i> الأقسام</a>
+                <a href="#downloads"><i class="fas fa-download"></i> التنزيلات</a>
+            </div>
+            
+            <button class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- الهيدر الرئيسي -->
+    <header class="hero" id="home">
+        <div class="hero-content">
+            <h1>موقع بيريز لمشاهدة الفيديوهات</h1>
+            <p>استمتع بأفضل الفيديوهات العربية، جودة عالية وتجربة مشاهدة فريدة</p>
+            <div class="hero-buttons">
+                <a href="#videos" class="btn btn-primary">
+                    <i class="fas fa-play"></i> ابدأ المشاهدة
+                </a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <i class="fas fa-video hero-icon"></i>
+        </div>
+    </header>
+
+    <!-- قسم الفيديوهات -->
+    <section class="videos-section" id="videos">
+        <div class="section-header">
+            <h2><i class="fas fa-play-circle"></i> مكتبة الفيديوهات</h2>
+            <p>اختر من بين مجموعة متنوعة من الفيديوهات عالية الجودة</p>
+        </div>
+        
+        <div class="search-container">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="videoSearch" placeholder="ابحث عن فيديو..." class="search-input">
+                <button id="clearSearch" class="clear-search">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="search-filters">
+                <button class="filter-btn active" data-filter="all">الكل</button>
+                <button class="filter-btn" data-filter="أفلام قصيرة">أفلام</button>
+                <button class="filter-btn" data-filter="موسيقى">موسيقى</button>
+                <button class="filter-btn" data-filter="ألعاب">ألعاب</button>
+                <button class="filter-btn" data-filter="تعليمية">تعليمية</button>
+                <button class="filter-btn" data-filter="كوميديا">كوميديا</button>
+                <button class="filter-btn" data-filter="رياضة">رياضة</button>
+            </div>
+        </div>
+        
+        <div class="videos-container" id="videosContainer">
+            <!-- الفيديوهات تظهر هنا من JavaScript -->
+        </div>
+    </section>
+
+    <!-- قسم الأقسام -->
+    <section class="categories-section" id="categories">
+        <div class="section-header">
+            <h2><i class="fas fa-list"></i> أقسام الفيديوهات</h2>
+            <p>تصفح الفيديوهات حسب التصنيفات المختلفة</p>
+        </div>
+        
+        <div class="categories-container">
+            <div class="category-card" onclick="filterVideos('أفلام قصيرة')">
+                <div class="category-icon">
+                    <i class="fas fa-film"></i>
+                </div>
+                <h3>أفلام قصيرة</h3>
+                <p>أفضل الأفلام القصيرة المميزة</p>
+            </div>
+            
+            <div class="category-card" onclick="filterVideos('موسيقى')">
+                <div class="category-icon">
+                    <i class="fas fa-music"></i>
+                </div>
+                <h3>موسيقى</h3>
+                <p>فيديوهات موسيقية وعروض غنائية</p>
+            </div>
+            
+            <div class="category-card" onclick="filterVideos('ألعاب')">
+                <div class="category-icon">
+                    <i class="fas fa-gamepad"></i>
+                </div>
+                <h3>ألعاب</h3>
+                <p>مقاطع ألعاب وتجارب تشغيل</p>
+            </div>
+            
+            <div class="category-card" onclick="filterVideos('تعليمية')">
+                <div class="category-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h3>تعليمية</h3>
+                <p>دروس تعليمية وشروحات متنوعة</p>
+            </div>
+            
+            <div class="category-card" onclick="filterVideos('كوميديا')">
+                <div class="category-icon">
+                    <i class="fas fa-laugh"></i>
+                </div>
+                <h3>كوميديا</h3>
+                <p>مقاطع مضحكة ومسلية</p>
+            </div>
+            
+            <div class="category-card" onclick="filterVideos('رياضة')">
+                <div class="category-icon">
+                    <i class="fas fa-basketball-ball"></i>
+                </div>
+                <h3>رياضة</h3>
+                <p>أبرز الأحداث واللقطات الرياضية</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم التنزيلات -->
+    <section class="downloads-section" id="downloads">
+        <div class="section-header">
+            <h2><i class="fas fa-download"></i> الإحصائيات</h2>
+            <p>أرقام وإحصائيات الموقع</p>
+        </div>
+        
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-video"></i>
+                </div>
+                <h3 id="totalVideos">0</h3>
+                <p>عدد الفيديوهات</p>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-eye"></i>
+                </div>
+                <h3 id="totalViews">0</h3>
+                <p>إجمالي المشاهدات</p>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h3 id="totalLikes">0</h3>
+                <p>إجمالي الإعجابات</p>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <h3 id="totalHours">0</h3>
+                <p>ساعات مشاهدة</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- الفوتر -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <i class="fas fa-video"></i>
+                <span>بيريز</span>
+                <p>منصة عربية لمشاهدة الفيديوهات عالية الجودة</p>
+            </div>
+            
+            <div class="footer-links">
+                <h3>روابط سريعة</h3>
+                <a href="#home">الرئيسية</a>
+                <a href="#videos">الفيديوهات</a>
+                <a href="#categories">الأقسام</a>
+                <a href="#downloads">الإحصائيات</a>
+            </div>
+            
+            <div class="footer-social">
+                <h3>تابعنا</h3>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>© 2023 موقع بيريز. جميع الحقوق محفوظة.</p>
+            <p>مصمم خصيصاً لتجربة مشاهدة متميزة على الهواتف</p>
+        </div>
+    </footer>
+
+    <!-- روابط JavaScript -->
+    <script src="videos-data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
