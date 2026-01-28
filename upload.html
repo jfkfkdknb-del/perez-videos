@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>رفع فيديو - موقع بيريز</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* تنسيقات إضافية لصفحة الرفع */
+        .upload-section {
+            padding: 120px 20px 80px;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        }
+        
+        .upload-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .upload-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .upload-header h1 {
+            font-size: 2.5rem;
+            color: #3b82f6;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .upload-header p {
+            color: #cbd5e1;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .upload-form {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .form-group label {
+            font-weight: 600;
+            color: #f1f5f9;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .form-group label i {
+            color: #3b82f6;
+        }
+        
+        .form-control {
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: #f1f5f9;
+            font-family: 'Cairo', sans-serif;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+        
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .file-upload-area {
+            border: 2px dashed rgba(59, 130, 246, 0.3);
+            border-radius: 15px;
+            padding: 60px 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(59, 130, 246, 0.05);
+        }
+        
+        .file-upload-area:hover {
+            border-color: #3b82f6;
+            background: rgba(59, 130, 246, 0.1);
+        }
+        
+        .file-upload-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .upload-icon {
+            font-size: 60px;
+            color: #3b82f6;
+        }
+        
+        .file-info {
+            display: none;
+            background: rgba(59, 130, 246, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            width: 100%;
+            margin-top: 20px;
+        }
+        
+        .file-info.active {
+            display: block;
+        }
+        
+        .file-name {
+            font-weight: 600;
+            color: #3b82f6;
+            margin-bottom: 5px;
+        }
+        
+        .file-size {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+        
+        .form-actions {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .btn-upload {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 15px 40px;
+            font-size: 18px;
+        }
+        
+        .btn-upload:hover {
+            background: linear-gradient(135deg, #059669, #047857);
+        }
+        
+        .btn-cancel {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 15px 40px;
+            font-size: 18px;
+        }
+        
+        .upload-progress {
+            display: none;
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        .upload-progress.active {
+            display: block;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 10px;
+        }
+        
+        .progress-text {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+        
+        .upload-success {
+            display: none;
+            text-align: center;
+            padding: 40px;
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: 15px;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            margin-top: 30px;
+        }
+        
+        .upload-success.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .success-icon {
+            font-size: 60px;
+            color: #10b981;
+            margin-bottom: 20px;
+        }
+        
+        .back-home {
+            display: inline-block;
+            margin-top: 20px;
+            color: #3b82f6;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .back-home:hover {
+            text-decoration: underline;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @media (max-width: 768px) {
+            .upload-container {
+                padding: 30px 20px;
+            }
+            
+            .upload-header h1 {
+                font-size: 2rem;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+            }
+            
+            .btn-upload, .btn-cancel {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- شريط التنقل -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-video"></i>
+                <span>بيريز</span>
+            </div>
+            
+            <div class="nav-links">
+                <a href="index.html"><i class="fas fa-home"></i> الرئيسية</a>
+                <a href="index.html#videos"><i class="fas fa-play-circle"></i> الفيديوهات</a>
+                <a href="index.html#categories"><i class="fas fa-list"></i> الأقسام</a>
+                <a href="upload.html" class="active"><i class="fas fa-upload"></i> رفع فيديو</a>
+                <a href="index.html#downloads"><i class="fas fa-download"></i> التنزيلات</a>
+            </div>
+            
+            <button class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- قسم رفع الفيديو -->
+    <section class="upload-section">
+        <div class="upload-container">
+            <div class="upload-header">
+                <h1><i class="fas fa-cloud-upload-alt"></i> رفع فيديو جديد</h1>
+                <p>ارفع فيديوهاتك من هاتفك بسهولة وسرعة. يدعم الموقع جميع الصيغ الشائعة.</p>
+            </div>
+            
+            <form id="uploadForm" class="upload-form">
+                <div class="form-group">
+                    <label for="videoTitle"><i class="fas fa-heading"></i> عنوان الفيديو</label>
+                    <input type="text" id="videoTitle" class="form-control" placeholder="أدخل عنواناً جذاباً للفيديو" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="videoDescription"><i class="fas fa-align-left"></i> وصف الفيديو</label>
+                    <textarea id="videoDescription" class="form-control" placeholder="صف محتوى الفيديو للمشاهدين..." required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="videoCategory"><i class="fas fa-list"></i> قسم الفيديو</label>
+                    <select id="videoCategory" class="form-control" required>
+                        <option value="">اختر القسم المناسب</option>
+                        <option value="أفلام قصيرة">أفلام قصيرة</option>
+                        <option value="موسيقى">موسيقى</option>
+                        <option value="ألعاب">ألعاب</option>
+                        <option value="تعليمية">تعليمية</option>
+                        <option value="كوميديا">كوميديا</option>
+                        <option value="رياضة">رياضة</option>
+                        <option value="عام">عام</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="videoDuration"><i class="fas fa-clock"></i> مدة الفيديو (دقيقة:ثانية)</label>
+                    <input type="text" id="videoDuration" class="form-control" placeholder="مثل: 5:30" pattern="[0-9]+:[0-5][0-9]" required>
+                    <small style="color: #94a3b8; font-size: 14px;">أدخل المدة بالتنسيق: دقائق:ثواني (مثال: 5:30)</small>
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-file-video"></i> اختيار الفيديو</label>
+                    <div class="file-upload-area" id="fileUploadArea">
+                        <div class="file-upload-content">
+                            <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                            <div>
+                                <h3>انقر لاختيار الفيديو أو اسحبه هنا</h3>
+                                <p>الحد الأقصى للحجم: 500MB | الصيغ المدعومة: MP4, AVI, MOV, MKV</p>
+                            </div>
+                            <input type="file" id="videoFile" accept="video/*" style="display: none;">
+                        </div>
+                    </div>
+                    <div class="file-info" id="fileInfo">
+                        <div class="file-name" id="fileName">لا يوجد ملف محدد</div>
+                        <div class="file-size" id="fileSize">0 MB</div>
+                    </div>
+                </div>
+                
+                <div class="upload-progress" id="uploadProgress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <div class="progress-text" id="progressText">جاري الرفع: 0%</div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-upload" id="uploadBtn">
+                        <i class="fas fa-upload"></i> رفع الفيديو
+                    </button>
+                    <button type="button" class="btn btn-cancel" id="cancelBtn">
+                        <i class="fas fa-times"></i> إلغاء
+                    </button>
+                </div>
+            </form>
+            
+            <div class="upload-success" id="uploadSuccess">
+                <i class="fas fa-check-circle success-icon"></i>
+                <h2>تم رفع الفيديو بنجاح!</h2>
+                <p id="successMessage">سيتم مراجعة الفيديو وعرضه قريباً في الموقع.</p>
+                <div>
+                    <a href="index.html" class="btn btn-primary">
+                        <i class="fas fa-home"></i> العودة للرئيسية
+                    </a>
+                    <a href="upload.html" class="btn btn-secondary" style="margin-right: 10px;">
+                        <i class="fas fa-plus"></i> رفع فيديو آخر
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- الفوتر -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <i class="fas fa-video"></i>
+                <span>بيريز</span>
+                <p>منصة عربية لمشاركة الفيديوهات من الهاتف</p>
+            </div>
+            
+            <div class="footer-links">
+                <h3>روابط سريعة</h3>
+                <a href="index.html">الرئيسية</a>
+                <a href="index.html#videos">الفيديوهات</a>
+                <a href="index.html#categories">الأقسام</a>
+                <a href="upload.html">رفع فيديو</a>
+                <a href="index.html#downloads">التنزيلات</a>
+            </div>
+            
+            <div class="footer-social">
+                <h3>تابعنا</h3>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>© 2023 موقع بيريز. جميع الحقوق محفوظة.</p>
+            <p>مصمم خصيصاً للعمل على الهواتف الذكية</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // تهيئة صفحة الرفع
+        document.addEventListener('DOMContentLoaded', function() {
+            // إعداد القائمة المتحركة للهواتف
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+            
+            if (menuToggle && navLinks) {
+                menuToggle.addEventListener('click', function() {
+                    navLinks.classList.toggle('active');
+                });
+            }
+            
+            // إعداد اختيار الملف
+            const fileUploadArea = document.getElementById('fileUploadArea');
+            const videoFileInput = document.getElementById('videoFile');
+            const fileInfo = document.getElementById('fileInfo');
+            const fileName = document.getElementById('fileName');
+            const fileSize = document.getElementById('fileSize');
+            
+            fileUploadArea.addEventListener('click', function() {
+                videoFileInput.click();
+            });
+            
+            videoFileInput.addEventListener('change', function(e) {
+                if (e.target.files.length > 0) {
+                    const file = e.target.files[0];
+                    fileName.textContent = file.name;
+                    
+                    // حساب حجم الملف
+                    const sizeInMB = (file.size / (1024 * 1024)).toFixed(2);
+                    fileSize.textContent = `${sizeInMB} MB`;
+                    
+                    // التحقق من حجم الملف
+                    if (file.size > 500 * 1024 * 1024) {
+                        alert('حجم الملف كبير جداً! الحد الأقصى هو 500MB');
+                        videoFileInput.value = '';
+                        fileInfo.classList.remove('active');
+                        return;
+                    }
+                    
+                    // التحقق من نوع الملف
+                    const validTypes = ['video/mp4', 'video/avi', 'video/quicktime', 'video/x-matroska'];
+                    if (!validTypes.includes(file.type)) {
+                        alert('صيغة الفيديو غير مدعومة! الرجاء اختيار MP4, AVI, MOV, أو MKV');
+                        videoFileInput.value = '';
+                        fileInfo.classList.remove('active');
+                        return;
+                    }
+                    
+                    fileInfo.classList.add('active');
+                }
+            });
+            
+            // إرسال النموذج
+            const uploadForm = document.getElementById('uploadForm');
+            const uploadProgress = document.getElementById('uploadProgress');
+            const progressFill = document.getElementById('progressFill');
+            const progressText = document.getElementById('progressText');
+            const uploadSuccess = document.getElementById('uploadSuccess');
+            const successMessage = document.getElementById('successMessage');
+            const cancelBtn = document.getElementById('cancelBtn');
+            
+            uploadForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // التحقق من البيانات
+                const title = document.getElementById('videoTitle').value;
+                const description = document.getElementById('videoDescription').value;
+                const category = document.getElementById('videoCategory').value;
+                const duration = document.getElementById('videoDuration').value;
+                const file = videoFileInput.files[0];
+                
+                if (!file) {
+                    alert('الرجاء اختيار ملف فيديو أولاً');
+                    return;
+                }
+                
+                // التحقق من صيغة المدة
+                const durationPattern = /^[0-9]+:[0-5][0-9]$/;
+                if (!durationPattern.test(duration)) {
+                    alert('الرجاء إدخال مدة الفيديو بالتنسيق الصحيح (دقائق:ثواني)');
+                    return;
+                }
+                
+                // عرض شريط التقدم
+                uploadProgress.classList.add('active');
+                
+                // محاكاة عملية الرفع
+                let progress = 0;
+                const uploadInterval = setInterval(() => {
+                    progress += 5;
+                    progressFill.style.width = `${progress}%`;
+                    progressText.textContent = `جاري الرفع: ${progress}%`;
+                    
+                    if (progress >= 100) {
+                        clearInterval(uploadInterval);
+                        
+                        // إنشاء فيديو جديد
+                        const videoData = {
+                            title: title,
+                            description: description,
+                            category: category,
+                            duration: duration,
+                            thumbnail: 'new'
+                        };
+                        
+                        // استخدام دالة addNewVideo من script.js
+                        if (typeof addNewVideo === 'function') {
+                            const newVideo = addNewVideo(videoData);
+                            
+                            // عرض رسالة النجاح
+                            setTimeout(() => {
+                                uploadProgress.classList.remove('active');
+                                uploadSuccess.classList.add('active');
+                                successMessage.textContent = `تم رفع الفيديو "${title}" بنجاح! سيتم عرضه الآن في الموقع.`;
+                            }, 500);
+                        } else {
+                            // في حالة عدم توفر الدالة، استخدام localStorage مباشرة
+                            const savedVideos = JSON.parse(localStorage.getItem('perez_videos') || '[]');
+                            const newId = savedVideos.length > 0 ? Math.max(...savedVideos.map(v => v.id)) + 1 : 1;
+                            
+                            const newVideo = {
+                                id: newId,
+                                title: title,
+                                description: description,
+                                duration: duration,
+                                views: 0,
+                                likes: 0,
+                                category: category,
+                                date: new Date().toISOString().split('T')[0],
+                                thumbnail: 'new'
+                            };
+                            
+                            savedVideos.unshift(newVideo);
+                            localStorage.setItem('perez_videos', JSON.stringify(savedVideos));
+                            
+                            setTimeout(() => {
+                                uploadProgress.classList.remove('active');
+                                uploadSuccess.classList.add('active');
+                                successMessage.textContent = `تم رفع الفيديو "${title}" بنجاح!`;
+                            }, 500);
+                        }
+                    }
+                }, 200);
+            });
+            
+            // زر الإلغاء
+            cancelBtn.addEventListener('click', function() {
+                if (confirm('هل تريد إلغاء رفع الفيديو؟')) {
+                    window.location.href = 'index.html';
+                }
+            });
+            
+            // منع سحب وإفلات الملفات على المنطقة
+            fileUploadArea.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                fileUploadArea.style.borderColor = '#3b82f6';
+                fileUploadArea.style.background = 'rgba(59, 130, 246, 0.2)';
+            });
+            
+            fileUploadArea.addEventListener('dragleave', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                fileUploadArea.style.borderColor = 'rgba(59, 130, 246, 0.3)';
+                fileUploadArea.style.background = 'rgba(59, 130, 246, 0.05)';
+            });
+            
+            fileUploadArea.addEventListener('drop', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                fileUploadArea.style.borderColor = 'rgba(59, 130, 246, 0.3)';
+                fileUploadArea.style.background = 'rgba(59, 130, 246, 0.05)';
+                
+                if (e.dataTransfer.files.length) {
+                    videoFileInput.files = e.dataTransfer.files;
+                    videoFileInput.dispatchEvent(new Event('change'));
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+{
+  "videos": [
+    {
+      "id": 1,
+      "title": "مشهد طبيعي خلاب",
+      "description": "مناظر طبيعية مذهلة من جبال وسهول",
+      "duration": "2:45",
+      "views": 1250,
+      "likes": 89,
+      "category": "أفلام قصيرة",
+      "date": "2023-10-15",
+      "thumbnail": "nature"
+    },
+    {
+      "id": 2,
+      "title": "عرض موسيقي رائع",
+      "description": "عرض حي لفرقة موسيقية محلية",
+      "duration": "4:20",
+      "views": 2300,
+      "likes": 150,
+      "category": "موسيقى",
+      "date": "2023-10-14",
+      "thumbnail": "music"
+    },
+    {
+      "id": 3,
+      "title": "لعبة جديدة - تجربة تشغيل",
+      "description": "تجربة تشغيل اللعبة المنتظرة هذا العام",
+      "duration": "15:30",
+      "views": 5400,
+      "likes": 320,
+      "category": "ألعاب",
+      "date": "2023-10-13",
+      "thumbnail": "gaming"
+    },
+    {
+      "id": 4,
+      "title": "درس برمجة للمبتدئين",
+      "description": "تعلم أساسيات JavaScript خطوة بخطوة",
+      "duration": "25:10",
+      "views": 3200,
+      "likes": 210,
+      "category": "تعليمية",
+      "date": "2023-10-12",
+      "thumbnail": "education"
+    },
+    {
+      "id": 5,
+      "title": "مقاطع مضحكة 2023",
+      "description": "أجمل المقاطع الكوميدية لهذا العام",
+      "duration": "8:15",
+      "views": 8900,
+      "likes": 650,
+      "category": "كوميديا",
+      "date": "2023-10-11",
+      "thumbnail": "comedy"
+    },
+    {
+      "id": 6,
+      "title": "أهداف مباراة اليوم",
+      "description": "ملخص وأهداف المباراة المثيرة",
+      "duration": "6:40",
+      "views": 12000,
+      "likes": 850,
+      "category": "رياضة",
+      "date": "2023-10-10",
+      "thumbnail": "sports"
+    }
+  ],
+  "stats": {
+    "totalDownloads": 12500,
+    "totalViews": 45600,
+    "totalVideos": 6,
+    "totalHours": 320
+  },
+  "categories": [
+    "أفلام قصيرة",
+    "موسيقى",
+    "ألعاب",
+    "تعليمية",
+    "كوميديا",
+    "رياضة",
+    "عام"
+  ]
+}
